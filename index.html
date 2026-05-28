@@ -4,19 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أنس للحلول البرمجية | تصميم مواقع وتطبيقات ومتاجر إلكترونية</title>
-    <!-- استيراد خط Tajawal الفخم -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary-color: #0f172a; /* أسود ملكي/نيلي غامق يعكس الطابع البرمجي */
-            --secondary-color: #2563eb; /* أزرق تقني حيوي */
-            --accent-color: #10b981; /* أخضر مالي/نجاح للمتاجر */
+            --primary-color: #0f172a; 
+            --secondary-color: #2563eb; 
+            --accent-color: #10b981; 
             --text-dark: #1e293b;
             --text-light: #f8fafc;
-            --bg-light: #f1f5f9;
+            --bg-light: #f8fafc;
+        }
+
+        /* حركات الأنيميشن المخصصة */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         * {
@@ -31,16 +47,19 @@
             background-color: #ffffff;
             color: var(--text-dark);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* القائمة العلوية */
         header {
-            background-color: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px); /* تأثير زجاجي عصري */
+            box-shadow: 0 2px 20px rgba(0,0,0,0.03);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
+            animation: fadeIn 1s ease-out;
         }
 
         .nav-container {
@@ -49,46 +68,67 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 18px 20px;
         }
 
         .logo {
             font-size: 22px;
             font-weight: 700;
             color: var(--secondary-color);
+            letter-spacing: 0.5px;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 25px;
+            gap: 30px;
         }
 
         .nav-links a {
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 500;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            right: 0;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .nav-links a:hover {
             color: var(--secondary-color);
         }
 
-        /* قسم الهيرو الرئيسي */
+        /* قسم الهيرو الرئيسي مع صورة الخلفية والحركة */
         .hero {
-            background: radial-gradient(circle at top right, #1e3a8a 0%, #0f172a 100%);
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), 
+                        url('http://googleusercontent.com/image_generation_content/0') no-repeat center center/cover;
             color: white;
-            padding: 180px 20px 120px 20px;
+            padding: 220px 20px 150px 20px;
             text-align: center;
             position: relative;
         }
 
+        .hero-content {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
         .hero h1 {
-            font-size: 46px;
-            margin-bottom: 20px;
+            font-size: 48px;
+            margin-bottom: 25px;
             font-weight: 700;
-            letter-spacing: -0.5px;
         }
 
         .hero h1 span {
@@ -96,34 +136,33 @@
         }
 
         .hero p {
-            font-size: 20px;
+            font-size: 21px;
             max-width: 800px;
             margin: 0 auto 40px auto;
             opacity: 0.9;
-            font-weight: 400;
         }
 
         .btn {
             display: inline-block;
             background-color: var(--secondary-color);
             color: white;
-            padding: 14px 40px;
+            padding: 15px 45px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
             box-shadow: 0 4px 20px rgba(37, 99, 234, 0.4);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .btn:hover {
-            transform: translateY(-3px);
+            transform: scale(1.05);
             background-color: #1d4ed8;
-            box-shadow: 0 6px 25px rgba(37, 99, 234, 0.5);
+            box-shadow: 0 10px 30px rgba(37, 99, 234, 0.6);
         }
 
         /* الأقسام العامة */
         section {
-            padding: 100px 20px;
+            padding: 120px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -132,73 +171,89 @@
             text-align: center;
             font-size: 34px;
             color: var(--primary-color);
-            margin-bottom: 60px;
+            margin-bottom: 70px;
         }
 
         .section-title::after {
             content: '';
             display: block;
-            width: 70px;
+            width: 50px;
             height: 4px;
             background-color: var(--secondary-color);
             margin: 12px auto 0 auto;
             border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        section:hover .section-title::after {
+            width: 90px; /* حركة خفيفة للخط عند التفاعل مع القسم */
         }
 
         /* قسم من نحن */
         .about-box {
             background: var(--bg-light);
-            border-radius: 24px;
-            padding: 50px;
+            border-radius: 30px;
+            padding: 60px;
             text-align: center;
             max-width: 900px;
             margin: 0 auto;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.01);
+            transition: transform 0.3s ease;
+        }
+
+        .about-box:hover {
+            transform: translateY(-3px);
         }
 
         .about-box p {
             font-size: 19px;
             color: #475569;
             margin-bottom: 20px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         /* شبكة الخدمات */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            gap: 40px;
         }
 
         .service-card {
             background: white;
-            padding: 45px 35px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            padding: 50px 35px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.02);
             border: 1px solid #f1f5f9;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
             border-color: #e2e8f0;
         }
 
         .service-icon {
-            font-size: 45px;
-            margin-bottom: 25px;
+            font-size: 40px;
+            margin-bottom: 30px;
             display: inline-block;
-            background: #eff6ff;
+            background: #f1f5f9;
             width: 90px;
             height: 90px;
             line-height: 90px;
-            border-radius: 50px;
+            border-radius: 24px;
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotate(10deg) scale(1.1);
         }
 
         .service-card h3 {
-            font-size: 22px;
+            font-size: 23px;
             margin-bottom: 15px;
             color: var(--primary-color);
         }
@@ -212,47 +267,54 @@
         .contact-wrapper {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             color: white;
-            border-radius: 30px;
-            padding: 60px;
+            border-radius: 40px;
+            padding: 80px 60px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 50px;
+            gap: 60px;
             align-items: center;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.3);
         }
 
         .contact-info h2 {
-            font-size: 32px;
-            margin-bottom: 20px;
+            font-size: 36px;
+            margin-bottom: 25px;
         }
 
         .contact-info p {
             color: #94a3b8;
             margin-bottom: 40px;
-            font-size: 17px;
+            font-size: 18px;
         }
 
         .info-item {
             display: flex;
             align-items: center;
             gap: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .info-icon {
             font-size: 24px;
-            background: rgba(255,255,255,0.1);
-            width: 50px;
-            height: 50px;
+            background: rgba(255,255,255,0.06);
+            width: 55px;
+            height: 55px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover .info-icon {
+            background: var(--secondary-color);
+            transform: scale(1.05);
         }
 
         .info-item a {
             color: white;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 19px;
             direction: ltr;
             transition: color 0.3s;
         }
@@ -264,49 +326,51 @@
         .contact-form {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
+            gap: 18px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.08);
         }
 
         .form-input {
-            padding: 15px;
+            padding: 16px;
             border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 12px;
             font-size: 16px;
             color: white;
             font-family: inherit;
+            transition: all 0.3s ease;
         }
 
         .form-input::placeholder {
-            color: #64748b;
+            color: #475569;
         }
 
         .form-input:focus {
             outline: none;
             border-color: var(--secondary-color);
             background: rgba(255,255,255,0.08);
+            box-shadow: 0 0 15px rgba(37, 99, 234, 0.2);
         }
 
         /* التذييل */
         footer {
             background-color: #020617;
-            color: #64748b;
+            color: #475569;
             text-align: center;
-            padding: 35px;
+            padding: 40px;
             font-size: 15px;
-            border-top: 1px solid #1e293b;
+            border-top: 1px solid #0f172a;
         }
 
-        /* التوافق مع الهواتف */
+        /* التوافق مع الشاشات */
         @media (max-width: 968px) {
             .contact-wrapper {
                 grid-template-columns: 1fr;
-                padding: 40px 20px;
-                gap: 30px;
+                padding: 50px 30px;
+                gap: 40px;
             }
         }
 
@@ -315,23 +379,22 @@
                 display: none;
             }
             .hero h1 {
-                font-size: 32px;
+                font-size: 34px;
             }
             .hero p {
-                font-size: 16px;
+                font-size: 17px;
             }
             .about-box {
-                padding: 30px 20px;
+                padding: 40px 20px;
             }
-            .about-box p {
-                font-size: 16px;
+            .service-card {
+                padding: 40px 25px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- القائمة العلوية -->
     <header>
         <div class="nav-container">
             <div class="logo">ANAS TECH</div>
@@ -344,14 +407,14 @@
         </div>
     </header>
 
-    <!-- القسم الرئيسي (Hero Section) -->
     <section id="hero" class="hero">
-        <h1>نُحوّل أفكارك الذكية إلى <span>واقع رقمي احترافي</span></h1>
-        <p>نحن متخصصون في برمجة تطبيقات الهواتف الذكية وتطوير المواقع والمتاجر الإلكترونية بأحدث التقنيات العالمية لتضمن لعملك الصدارة والانتشار.</p>
-        <a href="#contact" class="btn">ابدأ مشروعك اليوم</a>
+        <div class="hero-content">
+            <h1>نُحوّل أفكارك الذكية إلى <span>واقع رقمي احترافي</span></h1>
+            <p>نحن متخصصون في برمجة تطبيقات الهواتف الذكية وتطوير المواقع والمتاجر الإلكترونية بأحدث التقنيات العالمية لتضمن لعملك الصدارة والانتشار.</p>
+            <a href="#contact" class="btn">ابدأ مشروعك اليوم</a>
+        </div>
     </section>
 
-    <!-- قسم من نحن -->
     <section id="about">
         <h2 class="section-title">شريكك الرقمي الموثوق</h2>
         <div class="about-box">
@@ -360,28 +423,24 @@
         </div>
     </section>
 
-    <!-- قسم الخدمات -->
     <section id="services">
         <h2 class="section-title">خدماتنا الاحترافية</h2>
         <div class="services-grid">
             
-            <!-- الخدمة الأولى -->
             <div class="service-card">
-                <div class="service-icon" style="background: #fef3c7; color: #d97706;">📱</div>
+                <div class="service-icon" style="background: #eff6ff; color: #2563eb;">📱</div>
                 <h3>تطبيقات أندرويد و iOS</h3>
                 <p>برمجة تطبيقات هواتف ذكية (Android & iPhone) سريعة، متجاوبة، وذات واجهات مستخدم (UI/UX) جذابة وسهلة التصفح.</p>
             </div>
 
-            <!-- الخدمة الثانية -->
             <div class="service-card">
-                <div class="service-icon" style="background: #e0f2fe; color: #0284c7;">💻</div>
+                <div class="service-icon" style="background: #ecfdf5; color: #10b981;">💻</div>
                 <h3>تصميم مواقع ويب احترافية</h3>
                 <p>بناء وتطوير مواقع إلكترونية مخصصة للشركات والأفراد، متوافقة بالكامل مع محركات البحث وسريعة التحميل على كل الشاشات.</p>
             </div>
 
-            <!-- الخدمة الثالثة -->
             <div class="service-card">
-                <div class="service-icon" style="background: #d1fae5; color: #059669;">🛒</div>
+                <div class="service-icon" style="background: #fffbec; color: #f59e0b;">🛒</div>
                 <h3>المتاجر والتجارة الإلكترونية</h3>
                 <p>تأسيس متاجر إلكترونية متكاملة لبيع منتجاتك، مدعومة بأنظمة إدارة المخزون، بوابات الدفع الآمنة، وتجربة تسوق سلسة لعملائك.</p>
             </div>
@@ -389,11 +448,9 @@
         </div>
     </section>
 
-    <!-- قسم التواصل الشامل -->
     <section id="contact">
         <div class="contact-wrapper">
             
-            <!-- معلومات الاتصال المباشر -->
             <div class="contact-info">
                 <h2>لنبدأ نقاشاً حول مشروعك القادم</h2>
                 <p>إذا كان لديك فكرة أو مشروع وتريد استشارة تقنية احترافية، لا تتردد بالاتصال بنا مباشرة أو عبر ملء النموذج البريدي.</p>
@@ -409,7 +466,6 @@
                 </div>
             </div>
 
-            <!-- نموذج المراسلة -->
             <form class="contact-form" action="#" method="POST">
                 <input type="text" class="form-input" placeholder="الاسم الكريم" required>
                 <input type="email" class="form-input" placeholder="بريدك الإلكتروني" required>
@@ -421,7 +477,6 @@
         </div>
     </section>
 
-    <!-- التذييل -->
     <footer>
         <p>&copy; 2026 جميع الحقوق محفوظة لـ ANAS TECH للحلول البرمجية.</p>
     </footer>
